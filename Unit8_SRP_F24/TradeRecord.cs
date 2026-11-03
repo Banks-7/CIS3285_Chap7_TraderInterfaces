@@ -1,4 +1,4 @@
-﻿namespace SingleResponsibilityPrinciple
+﻿namespace Unit8_SRP_F24;
 {
     internal class TradeRecord
     {
