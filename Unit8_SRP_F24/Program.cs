@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace SingleResponsibilityPrinciple
 {
@@ -12,7 +7,11 @@ namespace SingleResponsibilityPrinciple
         static void Main(string[] args)
         {
             var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Unit8_SRP_F24.trades.txt");
-
+            if (tradeStream is null)
+            {
+                Console.Error.WriteLine("Could not find the embedded trades.txt file.");
+                return;
+            }
             var tradeProcessor = new TradeProcessor();
             tradeProcessor.ProcessTrades(tradeStream);
 
