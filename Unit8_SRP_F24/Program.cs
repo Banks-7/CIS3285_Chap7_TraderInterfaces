@@ -16,7 +16,7 @@ namespace SingleResponsibilityPrinciple
             var tradeProcessor = new TradeProcessor();
             tradeProcessor.ProcessTrades(tradeStream);
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
