@@ -22,9 +22,8 @@ class Program
         ITradeStorage tradeStorage = new AdoNetTradeStorage(logger);
 
         var tradeProcessor = new TradeProcessor(tradeDataProvider, tradeParser, tradeStorage);
-        tradeProcessor.ProcessTrades(tradeStream);
+        tradeProcessor.ProcessTrades();
 
         //Console.ReadKey();
     }
 }
-

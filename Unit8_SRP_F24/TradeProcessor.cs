@@ -22,7 +22,7 @@ public class TradeProcessor
     /// Main routine that processes the trade file
     /// </summary>
     /// <param name="stream"> The text file contianing the trade data </param>
-    public void ProcessTrades(Stream stream)
+    public void ProcessTrades()
     {
             var lines = tradeDataProvider.ReadTradeData();
             var trades = tradeParser.ParseTrades(lines);

@@ -2,8 +2,8 @@
 
 public class TradeRecord
 {
-    internal string DestinationCurrency;
-    internal float Lots;
-    internal decimal Price;
-    internal string SourceCurrency;
+    public  string DestinationCurrency;
+    public  float Lots;
+    public  decimal Price;
+    public  string SourceCurrency;
 }
