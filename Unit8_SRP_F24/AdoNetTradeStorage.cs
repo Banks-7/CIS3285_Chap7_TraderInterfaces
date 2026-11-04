@@ -1,4 +1,4 @@
-using System;
+﻿using Microsoft.Data.SqlClient;
 using Unit8_SRP_F24.Contracts;
 
 namespace Unit8_SRP_F24;
@@ -6,7 +6,12 @@ namespace Unit8_SRP_F24;
 public class AdoNetTradeStorage : ITradeStorage
 {
 
-    ConsoleLogger logger = new ConsoleLogger();
+    ILogger logger = new ConsoleLogger();
+    public AdoNetTradeStorage(ILogger logger)
+    {
+        this.logger = logger;
+    }
+
     /// <summary>
     /// Write the trade records to the database
     /// </summary>
@@ -32,7 +37,7 @@ public class AdoNetTradeStorage : ITradeStorage
             logger.LogMessage("INFO:Going to open database connection");
 
             connection.Open();
-            LogMessage("INFO:Database connection OPEN");
+            logger.LogMessage("INFO:Database connection OPEN");
 
             using (var transaction = connection.BeginTransaction())
             {
@@ -46,7 +51,7 @@ public class AdoNetTradeStorage : ITradeStorage
                     command.Parameters.AddWithValue("@destinationCurrency", trade.DestinationCurrency);
                     command.Parameters.AddWithValue("@lots", trade.Lots);
                     command.Parameters.AddWithValue("@price", trade.Price);
-                    LogMessage("INFO: Adding trade to database...");
+                    logger.LogMessage("INFO: Adding trade to database...");
 
                     command.ExecuteNonQuery();
                 }
@@ -56,6 +61,6 @@ public class AdoNetTradeStorage : ITradeStorage
             connection.Close();
         }
 
-        LogMessage("INFO: {0} trades processed", trades.Count());
+        logger.LogMessage("INFO: {0} trades processed", trades.Count());
     }
 }

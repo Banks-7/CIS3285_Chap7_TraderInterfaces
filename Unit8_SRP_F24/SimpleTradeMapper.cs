@@ -1,8 +1,9 @@
 using System;
+using Unit8_SRP_F24.Contracts;
 
 namespace Unit8_SRP_F24;
 
-public class SimpleTradeMapper
+public class SimpleTradeMapper : ITradeMapper
 {
     const float LotSize = 100000f;
     /// <summary>

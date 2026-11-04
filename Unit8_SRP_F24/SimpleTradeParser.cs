@@ -5,8 +5,8 @@ namespace Unit8_SRP_F24;
 
 public class SimpleTradeParser : ITradeParser
 {
-    SimpleTradeValidator validator;
-    SimpleTradeMapper mapper;
+    ITradeValidator  validator;
+    ITradeMapper mapper;
     public SimpleTradeParser(ITradeValidator tradeValidator, ITradeMapper tradeMapper)
     {
         this.validator = tradeValidator;

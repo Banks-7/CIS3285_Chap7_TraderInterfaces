@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Unit8_SRP_F24.Contracts;
 
 namespace Unit8_SRP_F24;
 
@@ -13,15 +14,15 @@ class Program
             Console.Error.WriteLine("Could not find the embedded trades.txt file.");
             return;
         }
-        var logger = new ConsoleLogger();
-        var tradeValidator = new SimpleTradeValidator(logger);
-        var tradeDataProvider = new StreamTradeDataProvider(tradeStream);
-        var tradeMapper = new SimpleTradeMapper();
-        var tradeParser = new SimpleTradeParser(tradeValidator, tradeMapper);
-        var tradeStorage = new AdoNetTradeStorage(logger);
+        ILogger logger = new ConsoleLogger();
+        ITradeValidator tradeValidator = new SimpleTradeValidator(logger);
+        ITradeDataProvider tradeDataProvider = new StreamTradeDataProvider(tradeStream);
+        ITradeMapper tradeMapper = new SimpleTradeMapper();
+        ITradeParser tradeParser = new SimpleTradeParser(tradeValidator, tradeMapper);
+        ITradeStorage tradeStorage = new AdoNetTradeStorage(logger);
 
         var tradeProcessor = new TradeProcessor(tradeDataProvider, tradeParser, tradeStorage);
-        tradeProcessor.ProcessTrades();
+        tradeProcessor.ProcessTrades(tradeStream);
 
         //Console.ReadKey();
     }
