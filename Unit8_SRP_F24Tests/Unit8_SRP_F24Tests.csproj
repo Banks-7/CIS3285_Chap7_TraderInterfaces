@@ -12,11 +12,15 @@
   <ItemGroup>
     <None Remove="badtrade_neg_amount.txt" />
     <None Remove="goodtrades.txt" />
+    <None Remove="trades_1good.txt" />
+    <None Remove="trades_5good.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="goodtrades.txt" />
     <EmbeddedResource Include="badtrade_neg_amount.txt" />
+    <EmbeddedResource Include="trades_1good.txt" LogicalName="Unit8_SRP_F24Tests.trades_1good.txt" />
+    <EmbeddedResource Include="trades_5good.txt" LogicalName="Unit8_SRP_F24Tests.trades_5good.txt" />
   </ItemGroup>
 
   <ItemGroup>

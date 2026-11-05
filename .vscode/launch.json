@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Launch Unit8_SRP_F24",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build Unit8_SRP_F24",
+            "program": "${workspaceFolder}\\Unit8_SRP_F24\\bin\\Debug\\net10.0\\Unit8_SRP_F24.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}\\Unit8_SRP_F24",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        }
+    ]
+}

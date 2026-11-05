@@ -1,13 +1,17 @@
 using System;
+using Unit8_SRP_F24.Contracts;
 
 namespace Unit8_SRP_F24;
 
 public class StreamTradeDataProvider : Contracts.ITradeDataProvider
 {
-    private Stream stream;
-    public StreamTradeDataProvider(Stream stream)
+    private Stream stream;              // Stream to read trade data file from
+    private readonly ILogger logger;    //  Logger to log messages
+
+    public StreamTradeDataProvider(Stream stream, ILogger logger)
     {
         this.stream = stream;
+        this.logger = logger;
     }
 
     /// <summary>
@@ -18,6 +22,7 @@ public class StreamTradeDataProvider : Contracts.ITradeDataProvider
     /// <returns> Returns a list of strings, one for each string for each line in the file </returns>
     public IEnumerable<string> ReadTradeData()
     {
+        logger.LogMessage("Reading trade data from file stream");
         // read rows
         List<string> lines = new List<string>();
         using (var reader = new StreamReader(stream))

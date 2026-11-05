@@ -34,10 +34,20 @@ public class AdoNetTradeStorage : ITradeStorage
         // Change the connection string used to match the one you want
         using (var connection = new SqlConnection(azureConnectString))
         {
-            logger.LogMessage("INFO:Going to open database connection");
+            logger.LogMessage("INFO: Going to open database connection");
 
-            connection.Open();
-            logger.LogMessage("INFO:Database connection OPEN");
+            try
+            {
+                connection.Open();
+            }
+            // Azure returns error 40613 (database unavailable) if the databse is asleep.  This catch block will log a message and rethrow the exception so the program can be restarted.
+            catch (SqlException ex) when (ex.Number == 40613)
+            {
+                logger.LogMessage("ERROR: The Azure database is waking up. Please wait a moment, then try running the program again.");
+                throw;
+            }
+
+            logger.LogMessage("INFO: Database connection OPEN");
 
             using (var transaction = connection.BeginTransaction())
             {
