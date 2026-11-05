@@ -26,13 +26,12 @@ public class SimpleTradeMapperTests
         //Arrange
         var mapper = new SimpleTradeMapper();
         string[] strData = { "AAABBB", "44000", "999.00" };
-        float LotSize = 100000f;
 
         //Act
         TradeRecord trade = mapper.MapTradeDataToTradeRecord(strData);
 
         //Assert
-        Assert.AreEqual(44000 / LotSize, trade.Lots);
+        Assert.AreEqual(0.44f, trade.Lots);
     }
 
     [TestMethod()]
@@ -64,4 +63,3 @@ public class SimpleTradeMapperTests
     }
 
 }
-

@@ -5,8 +5,6 @@ namespace Unit8_SRP_F24;
 
 public class TradeProcessor
 {
-    const float LotSize = 100000f;
-
     private readonly ITradeDataProvider tradeDataProvider;
     private readonly ITradeParser tradeParser;
     private readonly ITradeStorage tradeStorage;
@@ -30,4 +28,3 @@ public class TradeProcessor
     }
 
 }
-

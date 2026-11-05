@@ -6,8 +6,142 @@ namespace Unit8_SRP_F24Tests.UnitTests;
 [TestClass]
 public class SimpleTradeValidatorTests
 {
+
+    [TestMethod()]
+    public void TestGoodCurrencyString()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "4444", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod()]
+    public void TestShortCurrencyString()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAA", "4444", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1  );
+
+        //Assert
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod()]
+    public void TestLongCurrencyString()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAAABBBB", "4444", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod()]
+    public void TestNormalTrade()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "4444", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsTrue(result);
+    }
+    [TestMethod()]
+    public void TestAmount999()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "999", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsFalse(result);
+    }
+    [TestMethod()]
+    public void TestAmount1000()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "1000", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsTrue(result);
+    }
+    [TestMethod()]
+    public void TestAmountNeg10000()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "-10000", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsFalse(result);
+    }
+    [TestMethod()]
+    public void TestAmount100k()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "1000000", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsTrue(result);
+    }
+    [TestMethod()]
+    public void TestAmount101k()
+    {
+        //Arrange
+        var logger = new ConsoleLogger();
+        var tradeValidator = new SimpleTradeValidator(logger);
+        string[] strData = { "AAABBB", "1000001", "1.00" };
+
+        //Act
+        bool result = tradeValidator.ValidateTradeData(strData, 1);
+
+        //Assert
+        Assert.IsFalse(result);
+    }
+
+
+
+
     [TestMethod]
-    public void ValidateTradeData_WithValidFields_ReturnsTrue()
+    public void ValidFields_ReturnsTrue()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -21,7 +155,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithWrongNumberOfFields_ReturnsFalse()
+    public void WrongNumberOfFields_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -35,7 +169,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithCurrencyCodeOfWrongLength_ReturnsFalse()
+    public void CurrencyCodeOfWrongLength_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -49,7 +183,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithNonIntegerAmount_ReturnsFalse()
+    public void NonIntegerAmount_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -63,7 +197,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithNonDecimalPrice_ReturnsFalse()
+    public void NonDecimalPrice_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -77,7 +211,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithNegativeAmount_ReturnsFalse()
+    public void NegativeAmount_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -91,7 +225,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithNegativePrice_ReturnsFalse()
+    public void NegativePrice_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
@@ -105,7 +239,7 @@ public class SimpleTradeValidatorTests
     }
 
     [TestMethod]
-    public void ValidateTradeData_WithNonLetterCurrencyCodes_ReturnsFalse()
+    public void NonLetterCurrencyCodes_ReturnsFalse()
     {
         // Arrange
         var validator = new SimpleTradeValidator(new StubLogger());
